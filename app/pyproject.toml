@@ -6,9 +6,19 @@ authors = ["Matheus Goncalves <matayoos@protonmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
+fastapi = "^0.70.0"
+uvicorn = "^0.15.0"
+psycopg2-binary = "^2.9.2"
+SQLAlchemy = "^1.4.27"
+pytest-cov = "^3.0.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
+black = {version = "^21.11b1", allow-prereleases = true}
+mypy = "^0.910"
+flake8 = "^4.0.1"
+sqlalchemy-stubs = "^0.4"
+autoflake = "^1.4"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
