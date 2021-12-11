@@ -7,7 +7,6 @@ Create Date: 2021-12-09 18:36:08.913994
 """
 from alembic import op
 import sqlalchemy as sa
-from sqlalchemy.sql.schema import Column, ForeignKeyConstraint
 
 
 # revision identifiers, used by Alembic.
@@ -45,6 +44,7 @@ def upgrade():
     op.create_table(
         "item",
         sa.Column("id", sa.Integer, primary_key=True),
+        sa.Column("item_id", sa.Integer, nullable=False),
         sa.Column("description", sa.String(255), nullable=False),
         sa.Column("unit", sa.String(255), nullable=False),
         sa.Column("grocery_store_id", sa.Integer, nullable=False),
@@ -69,10 +69,10 @@ def upgrade():
         "invoice_items",
         sa.Column("item_id", sa.Integer, nullable=False),
         sa.Column("invoice_id", sa.Integer, nullable=False),
-        sa.ForeignKeyConstraint(["item_id"], ["item.id"]),
-        sa.ForeignKeyConstraint(["invoice_id"], ["invoice.id"]),
         sa.Column("qty", sa.Numeric(10, 2), nullable=False),
         sa.Column("value", sa.Numeric(10, 2), nullable=False),
+        sa.ForeignKeyConstraint(["item_id"], ["item.id"]),
+        sa.ForeignKeyConstraint(["invoice_id"], ["invoice.id"]),
     )
 
 
