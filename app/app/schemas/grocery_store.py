@@ -27,5 +27,5 @@ class GroceryStore(GroceryStoreInDBBase):
     pass
 
 
-class GroceryStoreInDB(GroceryStoreBase):
+class GroceryStoreInDB(GroceryStoreInDBBase):
     pass
