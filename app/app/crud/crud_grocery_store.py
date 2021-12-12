@@ -18,3 +18,7 @@ def create_grocery_store(db: Session, obj_in: GroceryStoreCreate) -> GroceryStor
     db.commit()
     db.refresh(db_obj)
     return db_obj
+
+
+def get_grocery_store_by_id(db: Session, id: int) -> GroceryStore:
+    return db.query(GroceryStore).filter(GroceryStore.id == id).first()

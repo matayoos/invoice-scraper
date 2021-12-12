@@ -10,8 +10,8 @@ def get_items(db: Session, skip: int = 0, limit: int = 100) -> List[Item]:
     return db.query(Item).offset(skip).limit(limit).all()
 
 
-def create_item(db: Session, obj_in: ItemCreate) -> Item:
-    db_obj = Item(**obj_in.dict())
+def create_item(db: Session, obj_in: ItemCreate, grocery_store_id: int) -> Item:
+    db_obj = Item(**obj_in.dict(), grocery_store_id=grocery_store_id)
     db.add(db_obj)
     db.commit()
     db.refresh(db_obj)
