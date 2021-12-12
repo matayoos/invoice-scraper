@@ -23,4 +23,4 @@ async def read_grocery_stores(
 async def create_grocery_stores(
     grocerystore: schemas.GroceryStoreCreate, db: Session = Depends(deps.get_db)
 ):
-    return crud.creater_grocery_store(db, grocerystore)
+    return crud.create_grocery_store(db, grocerystore)
