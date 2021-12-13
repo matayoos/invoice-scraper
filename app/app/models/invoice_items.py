@@ -8,6 +8,7 @@ from app.db.base_class import Base
 class InvoiceItems(Base):
     __tablename__ = "invoice_items"
 
+    id = Column(Integer, primary_key=True, index=True)
     item_id = Column(Integer, ForeignKey("item.id"))
     invoice_id = Column(Integer, ForeignKey("invoice.id"))
     qty = Column(Numeric, index=True)

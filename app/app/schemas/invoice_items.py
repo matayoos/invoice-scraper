@@ -16,8 +16,8 @@ class InvoiceItemsUpdate(InvoiceItemsBase):
 
 class InvoiceItemsInDBStore(InvoiceItemsBase):
     id: int
-    invoice_id: int
     item_id: int
+    invoice_id: int
 
     class Config:
         orm_mode = True

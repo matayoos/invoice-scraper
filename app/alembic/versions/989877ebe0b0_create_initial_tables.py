@@ -59,6 +59,7 @@ def upgrade():
 
     op.create_table(
         "item_category",
+        sa.Column("id", sa.Integer, primary_key=True),
         sa.Column("item_id", sa.Integer, nullable=False),
         sa.Column("category_id", sa.Integer, nullable=False),
         sa.ForeignKeyConstraint(["item_id"], ["item.id"]),
@@ -67,6 +68,7 @@ def upgrade():
 
     op.create_table(
         "invoice_items",
+        sa.Column("id", sa.Integer, primary_key=True),
         sa.Column("item_id", sa.Integer, nullable=False),
         sa.Column("invoice_id", sa.Integer, nullable=False),
         sa.Column("qty", sa.Numeric(10, 2), nullable=False),

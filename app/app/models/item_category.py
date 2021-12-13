@@ -7,6 +7,7 @@ from app.db.base_class import Base
 class ItemCategory(Base):
     __tablename__ = "item_category"
 
+    id = Column(Integer, primary_key=True, index=True)
     item_id = Column(Integer, ForeignKey("item.id"))
     category_id = Column(Integer, ForeignKey("category.id"))
 
