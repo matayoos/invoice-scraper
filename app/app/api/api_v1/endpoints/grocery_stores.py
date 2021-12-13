@@ -1,10 +1,13 @@
 from typing import List
+from app.schemas.grocery_store import GroceryStore, GroceryStoreBase
+from app.scrapper.scrapper_grocery_store import get_grocery_store_info
 
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from app import crud, schemas
 from app.api import deps
+from app.scrapper.base import get_content
 
 router = APIRouter()
 
@@ -23,3 +26,9 @@ async def create_grocery_stores(
     grocerystore: schemas.GroceryStoreCreate, db: Session = Depends(deps.get_db)
 ):
     return crud.create_grocery_store(db, grocerystore)
+
+
+@router.get("/scrappe", response_model=GroceryStoreBase)
+async def scrappe_grocery_store(url: str):
+    content = get_content(url)
+    return get_grocery_store_info(content)
