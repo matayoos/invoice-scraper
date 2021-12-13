@@ -27,9 +27,7 @@ def get_grocery_store_info(iframe_content) -> dict:
 
 
 def get_grocery_store_address(address_info) -> str:
-    address = address_info.find("td", "NFCCabecalho_SubTitulo1").text.split(
-        "\n"
-    )
+    address = address_info.find("td", "NFCCabecalho_SubTitulo1").text.split("\n")
 
     def strip_address(word: str) -> str:
         return word.strip()
