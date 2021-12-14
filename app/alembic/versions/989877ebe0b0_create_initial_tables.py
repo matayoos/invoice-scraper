@@ -31,7 +31,7 @@ def upgrade():
         sa.Column("id", sa.Integer, primary_key=True),
         sa.Column("url", sa.Text, nullable=False),
         sa.Column("date_time", sa.DateTime, nullable=False),
-        sa.Column("acess_key", sa.String(255), nullable=False),
+        sa.Column("access_key", sa.String(255), nullable=False),
         sa.Column("series", sa.String(255), nullable=False),
         sa.Column("auth_protocole", sa.String(255), nullable=False),
         sa.Column("nfce_number", sa.String(255), nullable=False),
@@ -67,7 +67,7 @@ def upgrade():
     )
 
     op.create_table(
-        "invoice_items",
+        "invoice_item",
         sa.Column("id", sa.Integer, primary_key=True),
         sa.Column("item_id", sa.Integer, nullable=False),
         sa.Column("invoice_id", sa.Integer, nullable=False),

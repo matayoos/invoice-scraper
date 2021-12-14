@@ -1,13 +1,10 @@
 from typing import List
-from app.scraper.scraper_invoice import get_invoice_info
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
 
-from app import crud, schemas
+from app import crud, schemas, scraper
 from app.api import deps
-from app.schemas.invoice import InvoiceBase
-from app.scraper.base import get_content, get_iframe_url
 
 router = APIRouter()
 
@@ -21,8 +18,28 @@ async def read_invoices(
     return crud.get_invoices(db=db, skip=skip, limit=limit)
 
 
-@router.post("/", response_model=InvoiceBase)
-async def register_invoice(url: str):
-    content = get_content(url)
-    iframe_url = get_iframe_url(url)
-    return get_invoice_info(content, iframe_url)
+@router.post("/", status_code=status.HTTP_200_OK)
+async def register_invoice(url: str, db: Session = Depends(deps.get_db)):
+    content = scraper.get_content(url)
+    iframe_url = scraper.get_iframe_url(url)
+
+    grocery_info = scraper.get_grocery_store_info(content)
+    invoice_info = scraper.get_invoice_info(content, iframe_url)
+    items = scraper.get_items(content)
+
+    grocery_store = crud.create_grocery_store(db, grocery_info)
+    invoice = crud.create_invoice(
+        db, obj_in=invoice_info, grocery_store_id=grocery_store.id
+    )
+
+    for item in items:
+        x = crud.create_item(
+            db, obj_in=schemas.ItemCreate(**item), grocery_store_id=grocery_store.id
+        )
+
+        crud.create_invoice_item(
+            db,
+            obj_in=schemas.InvoiceItemCreate(**item),
+            invoice_id=invoice.id,
+            item_id=x.id,
+        )

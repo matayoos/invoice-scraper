@@ -10,7 +10,7 @@ class Invoice(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     url = Column(String, index=True)
-    datetime = Column(DateTime, index=True)
+    date_time = Column(DateTime, index=True)
     access_key = Column(String, index=True)
     series = Column(String, index=True)
     auth_protocole = Column(String, index=True)
@@ -19,5 +19,5 @@ class Invoice(Base):
     discount = Column(Numeric, index=True)
     grocery_store_id = Column(Integer, ForeignKey("grocery_store.id"))
 
-    grocery_store = relationship("GroceryStore", back_populates="invoices")
-    invoice_items = relationship("InvoiceItems", back_populates="invoices")
+    grocery_store = relationship("GroceryStore", back_populates="invoice")
+    invoice_item = relationship("InvoiceItem", back_populates="invoice")

@@ -11,5 +11,5 @@ class ItemCategory(Base):
     item_id = Column(Integer, ForeignKey("item.id"))
     category_id = Column(Integer, ForeignKey("category.id"))
 
-    items = relationship("Item", back_populates="item_category")
+    item = relationship("Item", back_populates="item_category")
     category = relationship("Category", back_populates="item_category")

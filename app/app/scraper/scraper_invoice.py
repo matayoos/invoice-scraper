@@ -1,11 +1,12 @@
+from app.schemas.invoice import InvoiceCreate
+from app.scraper.base import str_to_datetime, str_to_float
 import pandas as pd
-from datetime import datetime
 
 
 RESUME_INDEX = 4
 
 DATE_INDEX = 2
-ACESS_KEY_INDEX = 5
+ACCESS_KEY_INDEX = 5
 AUTH_PROTOCOLE_INDEX = 6
 CONSUMER = 8
 
@@ -13,11 +14,11 @@ KEYS_INDEX = 0
 CONTENT_INDEX = 0
 
 
-def get_invoice_info(iframe_content, iframe_url) -> dict:
+def get_invoice_info(iframe_content, iframe_url) -> InvoiceCreate:
     details = get_details(iframe_content, iframe_url)
     resume = get_resume(iframe_content)
 
-    return dict(**details, **resume)
+    return InvoiceCreate(**details, **resume)
 
 
 def get_details(iframe_content, iframe_url) -> dict:
@@ -37,8 +38,8 @@ def get_details(iframe_content, iframe_url) -> dict:
     series = date[1]
     date_time = str_to_datetime(date[2])
 
-    acess_key = content[ACESS_KEY_INDEX].text
-    acess_key = "".join(acess_key.split(" "))
+    access_key = content[ACCESS_KEY_INDEX].text
+    access_key = "".join(access_key.split(" "))
 
     auth_protocole = content[AUTH_PROTOCOLE_INDEX].text.split(":")
     auth_protocole = auth_protocole[1].strip()
@@ -48,7 +49,7 @@ def get_details(iframe_content, iframe_url) -> dict:
     return {
         "url": iframe_url,
         "date_time": date_time,
-        "acess_key": acess_key,
+        "access_key": access_key,
         "series": series,
         "auth_protocole": auth_protocole,
         "nfce_number": nfce_number,
@@ -63,24 +64,7 @@ def get_resume(iframe_content) -> dict:
     resume_df = pd.read_html(str(content))[CONTENT_INDEX]
     resume_dict = resume_df.to_dict("records")
 
-    final_value = int(resume_dict[0][1])
-    discount = int(resume_dict[1][1])
+    final_value = str_to_float(resume_dict[0][1])
+    discount = str_to_float(resume_dict[1][1])
 
     return {"final_value": final_value, "discount": discount}
-
-
-def str_to_datetime(date_time: str):
-    # dd/mm/aaaa hh:mm:ss
-    data = date_time.split(" ")
-    date = data[0].split("/")
-    time = data[1].split(":")
-
-    year = int(date[2])
-    mounth = int(date[1])
-    day = int(date[0])
-
-    hour = int(time[0])
-    minute = int(time[1])
-    second = int(time[2])
-
-    return datetime(year, mounth, day, hour, minute, second)

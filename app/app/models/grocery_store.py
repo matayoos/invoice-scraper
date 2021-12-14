@@ -18,5 +18,5 @@ class GroceryStore(Base):
     inscricao_estadual = Column(String, index=True)
     address = Column(String, index=True)
 
-    invoices = relationship("Invoice", back_populates="grocery_store")
-    items = relationship("Item", back_populates="grocery_store")
+    invoice = relationship("Invoice", back_populates="grocery_store")
+    item = relationship("Item", back_populates="grocery_store")

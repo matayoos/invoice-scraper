@@ -5,8 +5,8 @@ from sqlalchemy.orm import relationship
 from app.db.base_class import Base
 
 
-class InvoiceItems(Base):
-    __tablename__ = "invoice_items"
+class InvoiceItem(Base):
+    __tablename__ = "invoice_item"
 
     id = Column(Integer, primary_key=True, index=True)
     item_id = Column(Integer, ForeignKey("item.id"))
@@ -14,5 +14,5 @@ class InvoiceItems(Base):
     qty = Column(Numeric, index=True)
     value = Column(Numeric, index=True)
 
-    items = relationship("Items", back_populates="invoice_items")
-    invoices = relationship("Invoice", back_populates="invoice_items")
+    item = relationship("Item", back_populates="invoice_item")
+    invoice = relationship("Invoice", back_populates="invoice_item")

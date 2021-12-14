@@ -10,8 +10,10 @@ def get_invoices(db: Session, skip: int = 0, limit: int = 100) -> List[Invoice]:
     return db.query(Invoice).offset(skip).limit.all()
 
 
-def creater_invoice(db: Session, obj_in: InvoiceCreate, invoice_id: int) -> Invoice:
-    db_obj = Invoice(**obj_in.dict(), invoice_id=invoice_id)
+def create_invoice(
+    db: Session, obj_in: InvoiceCreate, grocery_store_id: int
+) -> Invoice:
+    db_obj = Invoice(**obj_in.dict(), grocery_store_id=grocery_store_id)
     db.add(db_obj)
     db.commit()
     db.refresh(db_obj)

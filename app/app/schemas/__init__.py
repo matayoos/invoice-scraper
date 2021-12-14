@@ -5,11 +5,11 @@ from .grocery_store import (
     GroceryStoreUpdate,
 )
 from .invoice import Invoice, InvoiceCreate, InvoiceInDB, InvoiceUpdate
-from .item import Item, ItemBase, ItemInDB, ItemUpdate
-from .invoice_items import (
-    InvoiceItems,
-    InvoiceItemsBase,
-    InvoiceItemsCreate,
-    InvoiceItemsInDB,
-    InvoiceItemsUpdate,
+from .item import Item, ItemBase, ItemInDB, ItemUpdate, ItemCreate
+from .invoice_item import (
+    InvoiceItem,
+    InvoiceItemBase,
+    InvoiceItemCreate,
+    InvoiceItemInDB,
+    InvoiceItemUpdate,
 )

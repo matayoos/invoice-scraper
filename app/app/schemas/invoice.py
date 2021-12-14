@@ -6,7 +6,7 @@ from pydantic import BaseModel
 class InvoiceBase(BaseModel):
     url: str
     date_time: datetime
-    acess_key: str
+    access_key: str
     series: str
     auth_protocole: str
     nfce_number: str

@@ -13,6 +13,6 @@ class Item(Base):
     unit = Column(String, index=True)
     grocery_store_id = Column(Integer, ForeignKey("grocery_store.id"))
 
-    grocery_store = relationship("GroceryStore", back_populates="items")
-    invoice_items = relationship("InvoiceItems", back_populates="items")
-    item_category = relationship("ItemCategory", back_populates="items")
+    grocery_store = relationship("GroceryStore", back_populates="item")
+    invoice_item = relationship("InvoiceItem", back_populates="item")
+    item_category = relationship("ItemCategory", back_populates="item")
