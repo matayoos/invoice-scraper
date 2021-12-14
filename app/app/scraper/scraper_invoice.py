@@ -10,27 +10,14 @@ AUTH_PROTOCOLE_INDEX = 6
 CONSUMER = 8
 
 KEYS_INDEX = 0
+CONTENT_INDEX = 0
 
 
 def get_invoice_info(iframe_content, iframe_url) -> dict:
     details = get_details(iframe_content, iframe_url)
     resume = get_resume(iframe_content)
 
-    print(details)
-    print(resume)
-
-    print(details.get("date_time"))
-
-    return {
-        "url": iframe_url,
-        "date_time": details.get("date_time"),
-        "acess_key": details.get("acess_key"),
-        "series": details.get("series"),
-        "auth_protocole": details.get("auth_protocole"),
-        "nfce_number": details.get("nfce_number"),
-        "final_value": resume.get("final_value"),
-        "discount": resume.get("discount"),
-    }
+    return dict(**details, **resume)
 
 
 def get_details(iframe_content, iframe_url) -> dict:
@@ -73,7 +60,7 @@ def get_resume(iframe_content) -> dict:
     content = iframe_content.findAll("table", "NFCCabecalho")[RESUME_INDEX]
 
     # Get first tables
-    resume_df = pd.read_html(str(content))[0]
+    resume_df = pd.read_html(str(content))[CONTENT_INDEX]
     resume_dict = resume_df.to_dict("records")
 
     final_value = int(resume_dict[0][1])
