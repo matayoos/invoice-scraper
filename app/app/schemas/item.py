@@ -2,9 +2,7 @@ from pydantic import BaseModel
 
 
 class ItemBase(BaseModel):
-    item_id: int
-    description: str
-    unit: str
+    item_id: str
 
 
 class ItemCreate(ItemBase):
@@ -17,7 +15,6 @@ class ItemUpdate(ItemBase):
 
 class ItemInDBBase(ItemBase):
     id: int
-    grocery_store_id: int
 
     class Config:
         orm_mode = True
