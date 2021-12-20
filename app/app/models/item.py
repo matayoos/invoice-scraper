@@ -9,10 +9,9 @@ class Item(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     item_id = Column(String, index=True)
-    description = Column(String, index=True)
-    unit = Column(String, index=True)
     grocery_store_id = Column(Integer, ForeignKey("grocery_store.id"))
 
     grocery_store = relationship("GroceryStore", back_populates="item")
     invoice_item = relationship("InvoiceItem", back_populates="item")
+    item_detail = relationship("ItemDetail", back_populates="item")
     item_category = relationship("ItemCategory", back_populates="item")
