@@ -85,10 +85,10 @@ def upgrade():
     )
 
     op.create_table(
-        "item_detail",
+        "item_details",
         sa.Column("id", sa.Integer, primary_key=True),
         sa.Column("description", sa.String(255), nullable=False),
-        sa.Column("unit_id", sa.String(255), nullable=False),
+        sa.Column("unit_id", sa.Integer, nullable=False),
         sa.Column("item_id", sa.Integer, nullable=False),
         sa.ForeignKeyConstraint(["item_id"], ["item.id"]),
         sa.ForeignKeyConstraint(["unit_id"], ["unit.id"])
@@ -97,11 +97,11 @@ def upgrade():
     op.create_table(
         "invoice_item",
         sa.Column("id", sa.Integer, primary_key=True),
-        sa.Column("item_id", sa.Integer, nullable=False),
+        sa.Column("item_details_id", sa.Integer, nullable=False),
         sa.Column("invoice_id", sa.Integer, nullable=False),
         sa.Column("qty", sa.Numeric(10, 2), nullable=False),
         sa.Column("value", sa.Numeric(10, 2), nullable=False),
-        sa.ForeignKeyConstraint(["item_id"], ["item.id"]),
+        sa.ForeignKeyConstraint(["item_details_id"], ["item_details.id"]),
         sa.ForeignKeyConstraint(["invoice_id"], ["invoice.id"])
     )
 
