@@ -12,6 +12,5 @@ class Item(Base):
     grocery_store_id = Column(Integer, ForeignKey("grocery_store.id"))
 
     grocery_store = relationship("GroceryStore", back_populates="item")
-    invoice_item = relationship("InvoiceItem", back_populates="item")
-    item_detail = relationship("ItemDetail", back_populates="item")
+    item_details = relationship("ItemDetails", back_populates="item")
     item_category = relationship("ItemCategory", back_populates="item")

@@ -7,7 +7,6 @@ class InvoiceBase(BaseModel):
     url: str
     date_time: datetime
     access_key: str
-    series: str
     auth_protocole: str
     nfce_number: str
     final_value: float
@@ -24,7 +23,6 @@ class InvoiceUpdate(InvoiceBase):
 
 class InvoiceInDBBase(InvoiceBase):
     id: int
-    grocery_store_id: int
 
     class Config:
         orm_mode = True

@@ -14,11 +14,11 @@ KEYS_INDEX = 0
 CONTENT_INDEX = 0
 
 
-def get_invoice_info(iframe_content, iframe_url) -> InvoiceCreate:
+def get_invoice_info(iframe_content, iframe_url) -> dict:
     details = get_details(iframe_content, iframe_url)
     resume = get_resume(iframe_content)
 
-    return InvoiceCreate(**details, **resume)
+    return dict(**details, **resume)
 
 
 def get_details(iframe_content, iframe_url) -> dict:
@@ -50,7 +50,7 @@ def get_details(iframe_content, iframe_url) -> dict:
         "url": iframe_url,
         "date_time": date_time,
         "access_key": access_key,
-        "series": series,
+        "series_number": series,
         "auth_protocole": auth_protocole,
         "nfce_number": nfce_number,
         # "consumer": consumer,

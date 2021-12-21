@@ -14,9 +14,9 @@ def get_invoice_items(
 
 
 def create_invoice_item(
-    db: Session, obj_in: InvoiceItemCreate, invoice_id: int, item_id: int
+    db: Session, obj_in: InvoiceItemCreate, invoice_id: int, item_details_id: int
 ) -> InvoiceItem:
-    db_obj = InvoiceItem(**obj_in.dict(), invoice_id=invoice_id, item_id=item_id)
+    db_obj = InvoiceItem(**obj_in.dict(), invoice_id=invoice_id, item_details_id=item_details_id)
     db.add(db_obj)
     db.commit()
     db.refresh(db_obj)

@@ -2,6 +2,17 @@ from bs4 import BeautifulSoup
 import requests
 from datetime import datetime
 
+DATE_ID = 0
+TIME_ID = 1
+
+YEAR_ID = 2
+MOUNTH_ID = 1
+DAY_ID = 0
+
+HOUR_ID = 0
+MINUTE_ID = 1
+SECOND_ID = 2
+
 
 def get_content(url: str) -> str:
     iframe_url = get_iframe_url(url)
@@ -27,16 +38,16 @@ def str_to_float(num: str) -> float:
 def str_to_datetime(date_time: str):
     # dd/mm/aaaa hh:mm:ss
     data = date_time.split(" ")
-    date = data[0].split("/")
-    time = data[1].split(":")
+    date = data[DATE_ID].split("/")
+    time = data[TIME_ID].split(":")
 
-    year = int(date[2])
-    mounth = int(date[1])
-    day = int(date[0])
+    year = int(date[YEAR_ID])
+    mounth = int(date[MOUNTH_ID])
+    day = int(date[DAY_ID])
 
-    hour = int(time[0])
-    minute = int(time[1])
-    second = int(time[2])
+    hour = int(time[HOUR_ID])
+    minute = int(time[MINUTE_ID])
+    second = int(time[SECOND_ID])
 
     return datetime(year, mounth, day, hour, minute, second)
 

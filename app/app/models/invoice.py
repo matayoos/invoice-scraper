@@ -17,7 +17,7 @@ class Invoice(Base):
     final_value = Column(Numeric, index=True)
     discount = Column(Numeric, index=True)
     grocery_store_id = Column(Integer, ForeignKey("grocery_store.id"))
-    series_id = Column(Integer, ForeignKey("invoice_series.id"))
+    invoice_series_id = Column(Integer, ForeignKey("invoice_series.id"))
 
     grocery_store = relationship("GroceryStore", back_populates="invoice")
     invoice_item = relationship("InvoiceItem", back_populates="invoice")

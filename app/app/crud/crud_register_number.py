@@ -5,7 +5,7 @@ from app.models.register_number import RegisterNumber
 from app.schemas.register_number import RegisterNumberCreate
 
 
-def create_register_number(db: Session, obj_in: RegisterNumberCreate) -> RegisterNumber:
+def create_register_number(db: Session, obj_in: RegisterNumberCreate) -> int:
     db_obj = (
         db.query(RegisterNumber)
         .filter(
@@ -18,10 +18,10 @@ def create_register_number(db: Session, obj_in: RegisterNumberCreate) -> Registe
     )
 
     if db_obj:
-        return db_obj
+        return db_obj.id
     else:
         db_obj = RegisterNumber(**obj_in.dict())
         db.add(db_obj)
         db.commit()
         db.refresh(db_obj)
-        return db_obj
+        return db_obj.id

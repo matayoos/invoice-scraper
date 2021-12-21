@@ -8,7 +8,7 @@ INSCRICAO_ESTADUAL_INDEX = -1
 INSCRICAO_ESTADUAL_NUMERO_INDEX = 1
 
 
-def get_grocery_store_info(iframe_content) -> GroceryStoreCreate:
+def get_grocery_store_info(iframe_content) -> dict:
     content = iframe_content.findAll("table", "NFCCabecalho")
 
     info = content[INFO_INDEX]
@@ -21,7 +21,7 @@ def get_grocery_store_info(iframe_content) -> GroceryStoreCreate:
     inscricao_estadual = get_grocery_store_inscricao_estadual(details)
     address = get_grocery_store_address(address_info)
 
-    return GroceryStoreCreate(
+    return dict(
         name=name, cnpj=cnpj, inscricao_estadual=inscricao_estadual, address=address
     )
 

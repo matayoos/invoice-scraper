@@ -10,4 +10,4 @@ class Unit(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True)
 
-    item_detail = relationship("ItemDetail", back_populates="unit")
+    item_details = relationship("ItemDetails", back_populates="unit")

@@ -3,8 +3,6 @@ from pydantic import BaseModel
 
 class GroceryStoreBase(BaseModel):
     name: str
-    cnpj: str
-    inscricao_estadual: str
     address: str
 
 

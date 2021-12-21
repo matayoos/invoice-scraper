@@ -15,7 +15,7 @@ def get_grocery_stores(
 
 def create_grocery_store(
     db: Session, obj_in: GroceryStoreCreate, register_number_id: int
-) -> GroceryStore:
+) -> int:
     db_obj = (
         db.query(GroceryStore)
         .filter(
@@ -28,13 +28,13 @@ def create_grocery_store(
     )
     
     if db_obj:
-        return db_obj
+        return db_obj.id
     else:
         db_obj = GroceryStore(**obj_in.dict(), register_number_id=register_number_id)
         db.add(db_obj)
         db.commit()
         db.refresh(db_obj)
-        return db_obj
+        return db_obj.id
 
 
 def get_grocery_store_by_id(db: Session, id: int) -> GroceryStore:
