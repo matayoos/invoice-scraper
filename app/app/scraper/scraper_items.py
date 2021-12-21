@@ -1,6 +1,6 @@
 import pandas as pd
 
-from app.scraper.base import items_value_to_float
+from app.scraper.base import format_items_values
 
 ITEMS_INDEX = 3
 
@@ -18,4 +18,4 @@ def get_items(iframe_content) -> list:
     items_list = items_df.to_dict("records")
     del items_list[KEYS_INDEX]
 
-    return items_value_to_float(items_list)
+    return format_items_values(items_list)

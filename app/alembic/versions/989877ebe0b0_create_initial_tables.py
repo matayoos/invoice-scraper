@@ -99,7 +99,7 @@ def upgrade():
         sa.Column("id", sa.Integer, primary_key=True),
         sa.Column("item_details_id", sa.Integer, nullable=False),
         sa.Column("invoice_id", sa.Integer, nullable=False),
-        sa.Column("qty", sa.Numeric(10, 2), nullable=False),
+        sa.Column("qty", sa.Numeric(10, 5), nullable=False),
         sa.Column("value", sa.Numeric(10, 2), nullable=False),
         sa.ForeignKeyConstraint(["item_details_id"], ["item_details.id"]),
         sa.ForeignKeyConstraint(["invoice_id"], ["invoice.id"])

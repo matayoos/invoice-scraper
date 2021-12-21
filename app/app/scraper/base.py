@@ -1,3 +1,4 @@
+from typing import List
 from bs4 import BeautifulSoup
 import requests
 from datetime import datetime
@@ -52,8 +53,14 @@ def str_to_datetime(date_time: str):
     return datetime(year, mounth, day, hour, minute, second)
 
 
-def items_value_to_float(items: list) -> list:
+def format_items_values(items: list) -> list:
     for item in items:
         item["value"] = str_to_float(item["value"])
+
+        if item["unit"].lower() == "kg":
+            length = len(item["qty"])
+            divisor = pow(10, length - 1)
+
+            item["qty"] = float(item["qty"]) / divisor
 
     return items

@@ -2,7 +2,7 @@ from pydantic import BaseModel
 
 
 class InvoiceItemBase(BaseModel):
-    qty: int
+    qty: float
     value: float
 
 
