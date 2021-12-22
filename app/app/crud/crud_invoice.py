@@ -40,5 +40,9 @@ def get_invoices_by_grocery_store_id(
     )
 
 
-def get_invoice_by_url(db: Session, url: str, limit: int = 100) -> List[Invoice]:
-    return db.query(Invoice).filter(Invoice.url == url).limit(limit).all()
+def get_invoice_by_url(db: Session, url: str) -> Invoice:
+    return db.query(Invoice).filter(Invoice.url == url).first()
+
+
+def get_invoice_by_id(db: Session, id: int):
+    return db.query(Invoice).get(id)
