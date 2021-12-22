@@ -4,7 +4,7 @@ from app import crud, schemas
 from .utils import insert, get_content
 
 
-def register_invoice(db: Session, url: str) -> schemas.Invoice:
+def register_invoice(db: Session, url: str):
     try:
         content = get_content.get_invoice_info(url)
 

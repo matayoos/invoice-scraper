@@ -6,8 +6,8 @@ from app.models.invoice import Invoice
 from app.schemas.invoice import InvoiceCreate
 
 
-def get_invoices(db: Session, limit: int = 100) -> List[Invoice]:
-    return db.query(Invoice).limit(limit).all()
+def get_invoices(db: Session, skip: int = 0, limit: int = 100) -> List[Invoice]:
+    return db.query(Invoice).offset(skip).limit(limit).all()
 
 
 def create_invoice(

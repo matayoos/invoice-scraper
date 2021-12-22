@@ -4,7 +4,7 @@ from .grocery_store import (
     GroceryStoreInDB,
     GroceryStoreUpdate,
 )
-from .invoice import Invoice, InvoiceCreate, InvoiceInDB, InvoiceUpdate
+from .invoice import Invoice, InvoiceCreate, InvoiceInDB, InvoiceUpdate, InvoiceResponse
 from .item import Item, ItemBase, ItemInDB, ItemUpdate, ItemCreate
 from .invoice_item import (
     InvoiceItem,

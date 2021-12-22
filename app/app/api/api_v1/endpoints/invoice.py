@@ -1,4 +1,4 @@
-from typing import List
+from typing import Any, List
 
 from fastapi import APIRouter, Depends, status, HTTPException
 from sqlalchemy.orm import Session
@@ -9,16 +9,17 @@ from app.api import deps
 router = APIRouter()
 
 
-@router.get("/", response_model=List[schemas.Invoice])
-async def read_invoices(
-    db: Session = Depends(deps.get_db),
-    limit: int = 100,
-):
-    return crud.get_invoices(db=db, limit=limit)
+@router.get(
+    "/", response_model=List[schemas.InvoiceResponse], status_code=status.HTTP_200_OK
+)
+def read_invoices(db: Session = Depends(deps.get_db), skip: int = 0, limit: int = 100):
+    return crud.get_invoices(db=db, skip=skip, limit=limit)
 
 
-@router.post("/", status_code=status.HTTP_200_OK)
-def register_invoice(url: str, db: Session = Depends(deps.get_db)) -> schemas.Invoice:
+@router.post(
+    "/", response_model=schemas.InvoiceResponse, status_code=status.HTTP_200_OK
+)
+def register_invoice(url: str, db: Session = Depends(deps.get_db)) -> Any:
     is_a_registered_url = crud.get_invoice_by_url(db, url)
 
     if is_a_registered_url:
