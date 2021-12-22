@@ -1,6 +1,3 @@
-from app.schemas.grocery_store import GroceryStoreCreate
-
-
 INFO_INDEX = 0
 ADDRESS_INDEX = 1
 CNPJ_INDEX = 1

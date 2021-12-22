@@ -1,15 +1,12 @@
-from app.schemas.invoice import InvoiceCreate
-from app.scraper.base import str_to_datetime, str_to_float
 import pandas as pd
 
+from app.scraper import utils
 
 RESUME_INDEX = 4
-
 DATE_INDEX = 2
 ACCESS_KEY_INDEX = 5
 AUTH_PROTOCOLE_INDEX = 6
 CONSUMER = 8
-
 KEYS_INDEX = 0
 CONTENT_INDEX = 0
 
@@ -36,7 +33,7 @@ def get_details(iframe_content, iframe_url) -> dict:
 
     nfce_number = date[0]
     series = date[1]
-    date_time = str_to_datetime(date[2])
+    date_time = utils.str_to_datetime(date[2])
 
     access_key = content[ACCESS_KEY_INDEX].text
     access_key = "".join(access_key.split(" "))
@@ -60,11 +57,10 @@ def get_details(iframe_content, iframe_url) -> dict:
 def get_resume(iframe_content) -> dict:
     content = iframe_content.findAll("table", "NFCCabecalho")[RESUME_INDEX]
 
-    # Get first tables
     resume_df = pd.read_html(str(content))[CONTENT_INDEX]
     resume_dict = resume_df.to_dict("records")
 
-    final_value = str_to_float(resume_dict[0][1])
-    discount = str_to_float(resume_dict[1][1])
+    final_value = utils.str_to_money(resume_dict[0][1])
+    discount = utils.str_to_money(resume_dict[1][1])
 
     return {"final_value": final_value, "discount": discount}
