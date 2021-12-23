@@ -17,4 +17,4 @@ from .register_number import RegisterNumberCreate
 from .invoice_series import InvoiceSeriesCreate
 from .unit import UnitCreate
 from .item_details import ItemDetailsCreate
-from .url_list import UrlList
+from .url_list import UrlList, UrlListResponse
