@@ -68,7 +68,14 @@ def register_invoice_list(
 
 
 @router.get(
-    "/{year}",
+    "/{id}", response_model=schemas.InvoiceResponse, status_code=status.HTTP_200_OK
+)
+def get_invoice_by_id(id: int, db: Session = Depends(deps.get_db)) -> Any:
+    return crud.get_invoice_by_id(db, id=id)
+
+
+@router.get(
+    "/year/{year}",
     response_model=List[schemas.InvoiceResponse],
     status_code=status.HTTP_200_OK,
 )
@@ -79,7 +86,7 @@ def get_invoice_by_year(
 
 
 @router.get(
-    "/{year}/{month}",
+    "/year/{year}/month/{month}",
     response_model=List[schemas.InvoiceResponse],
     status_code=status.HTTP_200_OK,
 )

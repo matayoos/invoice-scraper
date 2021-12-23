@@ -46,7 +46,7 @@ def get_invoice_by_url(db: Session, url: str) -> Invoice:
     return db.query(Invoice).filter(Invoice.url == url).first()
 
 
-def get_invoice_by_id(db: Session, id: int):
+def get_invoice_by_id(db: Session, id: int) -> Invoice:
     return db.query(Invoice).get(id)
 
 
