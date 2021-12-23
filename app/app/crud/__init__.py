@@ -11,4 +11,6 @@ from .crud_invoice import (
     get_invoices,
     get_invoice_by_url,
     get_invoice_by_id,
+    get_invoice_by_year,
+    get_invoice_by_year_and_month,
 )

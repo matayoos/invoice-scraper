@@ -1,9 +1,11 @@
 from typing import List
 
+from sqlalchemy import extract
 from sqlalchemy.orm import Session
 
 from app.models.invoice import Invoice
 from app.schemas.invoice import InvoiceCreate
+from sqlalchemy.sql.elements import and_
 
 
 def get_invoices(db: Session, skip: int = 0, limit: int = 100) -> List[Invoice]:
@@ -46,3 +48,32 @@ def get_invoice_by_url(db: Session, url: str) -> Invoice:
 
 def get_invoice_by_id(db: Session, id: int):
     return db.query(Invoice).get(id)
+
+
+def get_invoice_by_year(
+    db: Session, year: int, skip: int = 0, limit: int = 100
+) -> List[Invoice]:
+    return (
+        db.query(Invoice)
+        .filter(extract("year", Invoice.date_time) == year)
+        .offset(skip)
+        .limit(limit)
+        .all()
+    )
+
+
+def get_invoice_by_year_and_month(
+    db: Session, year: int, month: int, skip: int = 0, limit: int = 100
+) -> List[Invoice]:
+    return (
+        db.query(Invoice)
+        .filter(
+            and_(
+                extract("year", Invoice.date_time) == year,
+                extract("month", Invoice.date_time) == month,
+            )
+        )
+        .offset(skip)
+        .limit(limit)
+        .all()
+    )

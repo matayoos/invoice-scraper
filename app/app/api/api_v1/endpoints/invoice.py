@@ -65,3 +65,31 @@ def register_invoice_list(
         "already_registered": already_registered,
         "errors": errors,
     }
+
+
+@router.get(
+    "/{year}",
+    response_model=List[schemas.InvoiceResponse],
+    status_code=status.HTTP_200_OK,
+)
+def get_invoice_by_year(
+    year: int, db: Session = Depends(deps.get_db), skip: int = 0, limit: int = 100
+) -> Any:
+    return crud.get_invoice_by_year(db, year=year, skip=skip, limit=limit)
+
+
+@router.get(
+    "/{year}/{month}",
+    response_model=List[schemas.InvoiceResponse],
+    status_code=status.HTTP_200_OK,
+)
+def get_invoice_by_year_and_month(
+    year: int,
+    month: int,
+    db: Session = Depends(deps.get_db),
+    skip: int = 0,
+    limit: int = 100,
+) -> Any:
+    return crud.get_invoice_by_year_and_month(
+        db, year=year, month=month, skip=skip, limit=limit
+    )
