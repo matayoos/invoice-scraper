@@ -1,4 +1,5 @@
 from typing import Any, List
+from app.schemas.invoice_item import InvoiceItemResponse
 
 from fastapi import APIRouter, Depends, status, HTTPException
 from sqlalchemy.orm import Session
@@ -99,4 +100,13 @@ def get_invoice_by_year_and_month(
 ) -> Any:
     return crud.get_invoice_by_year_and_month(
         db, year=year, month=month, skip=skip, limit=limit
+    )
+
+
+@router.get("/{invoice_id}/items", status_code=status.HTTP_200_OK)
+def get_invoice_items(
+    invoice_id: int, db: Session = Depends(deps.get_db), skip: int = 0, limit: int = 100
+) -> Any:
+    return crud.get_invoice_items_by_invoice_id(
+        db, invoice_id=invoice_id, skip=skip, limit=limit
     )

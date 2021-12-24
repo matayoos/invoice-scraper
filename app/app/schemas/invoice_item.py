@@ -14,6 +14,17 @@ class InvoiceItemUpdate(InvoiceItemBase):
     pass
 
 
+class InvoiceItemResponse(BaseModel):
+    id: int
+    description: str
+    unit: str
+    qty: float
+    value: float
+
+    class Config:
+        orm_mode = True
+
+
 class InvoiceItemInDBStore(InvoiceItemBase):
     id: int
     item_id: int
