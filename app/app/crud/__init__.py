@@ -6,6 +6,12 @@ from .crud_invoice_series import create_invoice_series
 from .crud_unit import create_unit
 from .crud_item_details import create_item_details
 from .crud_register_invoice import register_invoice
+from .crud_category import (
+    read_categories,
+    get_category_by_id,
+    create_category,
+    get_category_by_name,
+)
 from .crud_invoice import (
     create_invoice,
     get_invoices,

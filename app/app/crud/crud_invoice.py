@@ -15,20 +15,15 @@ def get_invoices(db: Session, skip: int = 0, limit: int = 100) -> List[Invoice]:
 def create_invoice(
     db: Session, obj_in: InvoiceCreate, grocery_store_id: int, invoice_series_id: int
 ) -> Invoice:
-    db_obj = db.query(Invoice).filter(Invoice.url.like(obj_in.url)).first()
-
-    if db_obj:
-        return db_obj.id
-    else:
-        db_obj = Invoice(
-            **obj_in.dict(),
-            grocery_store_id=grocery_store_id,
-            invoice_series_id=invoice_series_id
-        )
-        db.add(db_obj)
-        db.commit()
-        db.refresh(db_obj)
-        return db_obj.id
+    db_obj = Invoice(
+        **obj_in.dict(),
+        grocery_store_id=grocery_store_id,
+        invoice_series_id=invoice_series_id
+    )
+    db.add(db_obj)
+    db.commit()
+    db.refresh(db_obj)
+    return db_obj.id
 
 
 def get_invoices_by_grocery_store_id(
