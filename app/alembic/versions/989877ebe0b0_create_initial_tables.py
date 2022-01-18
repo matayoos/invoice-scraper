@@ -34,6 +34,21 @@ def upgrade():
     )
 
     op.create_table(
+        "type",
+        sa.Column("id", sa.Integer, primary_key=True),
+        sa.Column("name", sa.String(255), nullable=False)
+    )
+
+    op.create_table(
+        "type_store",
+        sa.Column("id", sa.Integer, primary_key=True),
+        sa.Column("grocery_store_id", sa.Integer, nullable=False),
+        sa.Column("type_id", sa.Integer, index=True),
+        sa.ForeignKeyConstraint(["grocery_store_id"], ["grocery_store.id"]),
+        sa.ForeignKeyConstraint(["type_id"], ["type.id"])
+    )
+
+    op.create_table(
         "invoice_series",
         sa.Column("id", sa.Integer, primary_key=True),
         sa.Column("series_number", sa.String, nullable=False)
@@ -107,4 +122,15 @@ def upgrade():
 
 
 def downgrade():
-    pass
+    op.drop_table("invoice_item")
+    op.drop_table("item_details")
+    op.drop_table("unit")
+    op.drop_table("item_category")
+    op.drop_table("category")
+    op.drop_table("item")
+    op.drop_table("invoice")
+    op.drop_table("type_store")
+    op.drop_table("type")
+    op.drop_table("grocery_store")
+    op.drop_table("invoice_series")
+    op.drop_table("register_number")

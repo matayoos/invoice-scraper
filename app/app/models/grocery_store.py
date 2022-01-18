@@ -15,3 +15,4 @@ class GroceryStore(Base):
     register_number = relationship("RegisterNumber", back_populates="grocery_store")
     invoice = relationship("Invoice", back_populates="grocery_store")
     item = relationship("Item", back_populates="grocery_store")
+    type_store = relationship("TypeStore", back_populates="grocery_store")
